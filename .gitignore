@@ -1,0 +1,3 @@
+*.tmp
+tmp.*
+make_mirror.sh

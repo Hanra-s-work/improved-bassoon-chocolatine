@@ -1,0 +1,19 @@
+on:
+  push:
+    branches-ignore:
+    - "ga-ignore-*"
+  pull_request:
+    branches-ignore:
+    - "ga-ignore-*"
+
+env:
+  MIRROR: "fuck you"
+  EXECUTABLE: "bitch"
+
+jobs:
+  what_time_is_it:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "What's the time?"
+      run: "date +%T"
+
