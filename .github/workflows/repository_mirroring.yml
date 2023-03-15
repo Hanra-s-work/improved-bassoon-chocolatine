@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: "Clone original repository"
-      run: git clone --mirror "https://github.com:${{ env.SOURCE }}.git"
+      run: git clone --mirror "https://github.com/${{ env.SOURCE }}.git"
 
     - name: Push the content to the mirror repository
       run: |
