@@ -27,5 +27,5 @@ jobs:
 
     - name: Push the content to the mirror repository
       run: |
-        git remote add mirror "git@github.com:${{ env.MIRROR }}.git"
+        git remote add mirror "https://github.com/${{ env.MIRROR }}.git"
         git push --mirror mirror
