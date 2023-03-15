@@ -1,3 +1,4 @@
+name: What time is it?
 on:
   push:
     branches-ignore:

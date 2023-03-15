@@ -1,3 +1,4 @@
 *.tmp
 tmp.*
 make_mirror.sh
+personall_access_token.token

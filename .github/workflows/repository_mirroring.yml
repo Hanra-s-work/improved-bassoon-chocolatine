@@ -1,0 +1,31 @@
+name: Repository Mirroring
+
+on:
+  push:
+    branches-ignore:
+    - "ga-ignore-*"
+  pull_request:
+    branches-ignore:
+    - "ga-ignore-*"
+  schedule:
+  - cron: '0 0 * * *' # Run the workflow every day at midnight
+
+
+env:
+  SOURCE: Hanra-s-work/improved-bassoon-chocolatine
+  MIRROR: "EpitechPromo2027/B-DOP-200-PAR-2-1-chocolatine-henry.letellier"
+  EXECUTABLE: "World"
+  GITHUB_TOKEN: ${{ secrets.MY_CHOCO_SECRET_TOKEN }}
+
+jobs:
+  repository_mirroring:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: "Clone original repository"
+      run: git clone --mirror "git@github.com:${{ env.SOURCE }}.git"
+
+    - name: Push the content to the mirror repository
+      run: |
+        git remote add mirror "git@github.com:${{ env.MIRROR }}.git"
+        git push --mirror mirror

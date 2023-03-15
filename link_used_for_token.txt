@@ -1,0 +1,5 @@
+link: https://github.com/settings/tokens/new
+name: choco_2023
+expiration: no_expiration
+scopes:
+-   repo
