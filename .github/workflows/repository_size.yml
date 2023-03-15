@@ -1,0 +1,21 @@
+on:
+  push:
+    branches-ignore:
+    - "ga-ignore-*"
+  pull_request:
+    branches-ignore:
+    - "ga-ignore-*"
+
+env:
+  MIRROR: "Hello"
+  EXECUTABLE: "World"
+
+jobs:
+  repository_size:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: "Display the current branche we are on"
+      run: echo "The workflow is running on branch ${GITHUB_REF#refs/heads/}"
+    - name: "Get the size of the repository (without the .git folder)"
+      run: echo "$(du -skh --exclude=\".git\")"
