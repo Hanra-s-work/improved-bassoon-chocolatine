@@ -16,7 +16,7 @@ env:
   EXECUTABLE: "hello_world"
   EPITEST_DOCKER: ghcr.io/epitech/coding-style-checker:latest
   GITHUB_SSH_KEY: ${{ secrets.MY_CHOCO_PRIVATE_SSH_KEY }}
-  CHECKER: check_results_v2.sh
+  BASH_CHECKER: check_results_v2.sh
 
 jobs:
   check_coding_style:
@@ -31,7 +31,7 @@ jobs:
     - name: run check.sh
       run: ./check.sh $(pwd) $(pwd)
     - name: checking the results
-      run: chmod +x ./${{ CHECKER }} && ./${{ CHECKER }}
+      run: chmod +x ./${{ BASH_CHECKER }} && ./${{ BASH_CHECKER }}
       # run: |
       #   CONTENT="$(cat coding-style-reports.log)"
       #   ILLEGAL_FILES_FOUND=0
