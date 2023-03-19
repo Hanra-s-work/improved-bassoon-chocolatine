@@ -1,4 +1,5 @@
 #!/bin/bash
+# (c) Written by Henry Letellier
 CONTENT="$(cat coding-style-reports.log)"
 ILLEGAL_FILES_FOUND=0
 for FILE in $CONTENT; do

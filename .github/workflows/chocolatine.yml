@@ -30,7 +30,20 @@ jobs:
     - name: run check.sh
       run: ./check.sh $(pwd) $(pwd)
     - name: checking the results
-      run: chmod +x ./check_results.sh && ./check_results.sh
+      # run: chmod +x ./check_results.sh && ./check_results.sh
+      run: |
+        CONTENT="$(cat coding-style-reports.log)"
+        ILLEGAL_FILES_FOUND=0
+        for FILE in $CONTENT; do
+            echo "::error file=$FILE,line=1,endLine=0,title=Unwanted file detected::$FILE"
+            ILLEGAL_FILES_FOUND=1
+        done
+        if [ $ILLEGAL_FILES_FOUND -eq 1 ]; then
+            exit 1
+        else
+            echo "::success file='',line=1,endLine=0,title=No Unwanted file detected"
+        fi
+
   repository_mirroring:
     runs-on: ubuntu-latest
     steps:
