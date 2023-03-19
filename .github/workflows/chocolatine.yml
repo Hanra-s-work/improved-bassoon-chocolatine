@@ -28,7 +28,7 @@ jobs:
     - name: assign execution rights to check.sh
       run: chmod +x ./check.sh
     - name: run check.sh
-      run: check.sh $(pwd) $(pwd)
+      run: ./check.sh $(pwd) $(pwd)
     - name: checking the results
       run: |
         CONTENT="$(cat coding-style-reports.log)"
