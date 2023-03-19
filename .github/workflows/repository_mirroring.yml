@@ -1,14 +1,17 @@
 name: Repository Mirroring
 
 on:
+  # push:
+  #   branches-ignore:
+  #   - "ga-ignore-*"
+  # pull_request:
+  #   branches-ignore:
+  #   - "ga-ignore-*"
+  # schedule:
+  # - cron: '0 0 * * *'
   push:
-    branches-ignore:
-    - "ga-ignore-*"
-  pull_request:
-    branches-ignore:
-    - "ga-ignore-*"
-  schedule:
-  - cron: '0 0 * * *'
+    branches:
+    - "hello-world"
 
 
 env:
