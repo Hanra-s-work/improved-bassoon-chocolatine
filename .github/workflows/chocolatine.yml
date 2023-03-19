@@ -14,9 +14,37 @@ env:
   SOURCE: Hanra-s-work/improved-bassoon-chocolatine
   MIRROR: "EpitechPromo2027/B-DOP-200-PAR-2-1-chocolatine-henry.letellier"
   EXECUTABLE: "hello_world"
+  EPITEST_DOCKER: ghcr.io/epitech/coding-style-checker:latest
   GITHUB_SSH_KEY: ${{ secrets.MY_CHOCO_PRIVATE_SSH_KEY }}
 
 jobs:
+  check_coding_style:
+    runs-on: ${{ EPITEST_DOCKER }}
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: check_the_coding_style
+      run: check.sh $(pwd) $(pwd)
+    - name: checking the results
+      run: |
+        CONTENT="$(cat coding-style-reports.log)"
+        ILLEGAL_FILES_FOUND=0
+        if [ $(#CONTENT) -ne 0 ]
+        then
+          for FILE in $ILLEGAL_FILES
+          do
+            echo "::error file=$FILE,line=1,endLine=0,title=Unwanted file detected::$FILE"
+            ILLEGAL_FILES_FOUND=1
+          done
+          if [ $ILLEGAL_FILES_FOUND -eq 1 ]
+          then
+            exit 1
+          fi
+        else
+        then
+          echo "::success file=$FILE,line=1,endLine=0,title=No Unwanted file detected"
+        fi
   repository_mirroring:
     runs-on: ubuntu-latest
     steps:
