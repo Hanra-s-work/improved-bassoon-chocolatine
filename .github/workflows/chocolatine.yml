@@ -19,12 +19,15 @@ env:
 
 jobs:
   check_coding_style:
-    runs-on: ${{ EPITEST_DOCKER }}
+    # runs-on: ${{ EPITEST_DOCKER }}
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: check_the_coding_style
+    - name: assign execution rights to check.sh
+      run: chmod +x ./check.sh
+    - name: run check.sh
       run: check.sh $(pwd) $(pwd)
     - name: checking the results
       run: |
