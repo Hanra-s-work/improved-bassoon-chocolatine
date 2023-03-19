@@ -36,6 +36,8 @@ jobs:
     steps:
     - name: Step 1
       run: echo "Step 1"
+    - name: will fail
+      run: ./diqshdiqho
 
   job2:
     runs-on: ubuntu-latest
