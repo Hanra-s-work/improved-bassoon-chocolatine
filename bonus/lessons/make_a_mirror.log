@@ -1,0 +1,89 @@
+[0:0:0] How to make a mirror repository using github actions
+[1:0:0] File name     : repository_mirroring.yml
+[2:0:0] File location : .github/workflows
+[3:0:0] File content  :
+[3:1:0] name: Repository Mirroring
+[3:2:0] 
+[3:3:0] on:
+[3:4:0]   push:
+[3:5:0]     branches-ignore:
+[3:6:0]     - "ga-ignore-*"
+[3:7:0]   pull_request:
+[3:8:0]     branches-ignore:
+[3:9:0]     - "ga-ignore-*"
+[3:10:0]   schedule:
+[3:11:0]   - cron: '0 0 * * *' # Run the workflow every day at midnight
+[3:12:0] 
+[3:13:0] 
+[3:14:0] env:
+[3:15:0]   SOURCE: Hanra-s-work/improved-bassoon-chocolatine
+[3:16:0]   MIRROR: "EpitechPromo2027/B-DOP-200-PAR-2-1-chocolatine-henry.letellier"
+[3:17:0]   EXECUTABLE: "World"
+[3:18:0]   GITHUB_TOKEN: ${{ secrets.MY_CHOCO_SECRET_TOKEN }}
+[3:19:0]   GITHUB_SSH_KEY: ${{ secrets.MY_CHOCO_PRIVATE_SSH_KEY }}
+[3:20:0] 
+[3:21:0] jobs:
+[3:22:0]   repository_mirroring:
+[3:23:0]     runs-on: ubuntu-latest
+[3:24:0]     steps:
+[3:25:0]     - uses: actions/checkout@v3
+[3:26:0]       with:
+[3:27:0]         fetch-depth: 0
+[3:30:0]     - name: Push the content to the mirror repository
+[3:31:0]       uses: pixta-dev/repository-mirroring-action@v1
+[3:32:0]       with:
+[3:33:0]         target_repo_url: git@github.com:${{ env.MIRROR }}.git
+[3:34:0]         ssh_private_key: ${{ env.GITHUB_SSH_KEY }}
+[3:35:0] 
+[4:0:0] Steps:
+[4:1:0] - Generate an ssh key
+[4:1:1]     - Open a terminal
+[4:1:2]     - run: ssh-keygen
+[4:1:3]     -   file_name: choco_rsa
+[4:1:4]     -   passphrase: <none>
+[4:1:5]     -   confirm: <none>
+[4:1:6]
+[4:2:0] - Create a github repository
+[4:2:1]
+[4:3:0] - Go to the repository settings:
+[4:3:1]     - Go to the "secrets" section
+[4:3:2]     -   Under "Actions"
+[4:3:3]     -   Create "New repository secret"
+[4:3:4]     -   Name your key: "MY_CHOCOLATINE_PRIVATE_SSH_KEY" in the "Name" section
+[4:3:5]     -   Paste the content of "choco_rsa" (not "choco_rsa.pub") in "Secret"
+[4:3:6]     -       "choco_rsa" is normally located in the "$HOME/.ssh" folder
+[4:3:7]     -   click the "Add secret" button to validate secret
+[4:3:8]
+[4:4:0] - In the repository
+[4:4:1]     - Create the folders:
+[4:4:2]     -   ".github"
+[4:4:3]     -   "workflows" in the ".github" folder
+[4:4:4]
+[4:5:0] - In ".github/workflows":
+[4:5:1]     - Create the file: "main.yml"
+[4:5:2]
+[4:6:0] - In "main.yml"
+[4:6:1]     - name your workflow using the "name:<content>" variable (see: [3:1:0])
+[4:6:2]     - define when to run the workflow with the "on" variable (see: [3:3:0])
+[4:6:3]     - define environement variables with the "env" variable (see: [3:14:0])
+[4:6:4]     - define the tasks to be run with the "jobs" variable (see: [3:21:0])
+[4:6:5]     - define the name of the job (see: [3:22:0])
+[4:6:6]     - define the system image to use with "runs-on" (see: [3:23:0])
+[4:6:7]     - declare the steps to follow with "steps" (see: [3:24:0])
+[4:6:8]     - declare the dependencies to use with "uses" (see: [3:25:0] and [3:31:0])
+[4:6:9]     - name the current step with "- name" (see: [3:30:0])
+[4:6:10]    - declare the required dependencie for the current step with "uses" (see: [3:31:0])
+[4:6:11]    - declare the variables to pass to the dependencie with "with" (see: [3:32:0])
+[4:6:12]    - for this dependencie, pass it the "target_repo_url" and "ssh_private_key" variables (see: [3:33:0] and [3:34:0])
+[4:6:13]
+[4:7:0] - Save the file
+[4:7:1]
+[4:8:0] - Push the files to github
+[4:8:1]
+[4:9:0] - You can check the status of your action by going to the actions section of your repository.
+[4:9:1]     - grey: queued, not run
+[4:9:2]     - orange: running
+[4:9:3]     - green: success
+[4:9:4]     - red: failure
+[4:9:5]
+[5:0:0] Thank you for your attention ! ;-)

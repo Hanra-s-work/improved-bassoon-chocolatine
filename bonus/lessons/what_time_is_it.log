@@ -1,0 +1,58 @@
+[0:0:0] Display the current time with a github action
+[1:0:0] File name     : what_time_is_it.yml
+[2:0:0] File location : .github/workflows
+[3:0:0] File content  :
+[3:1:0] name: What time is it?
+[3:2:0] 
+[3:3:0] on:
+[3:4:0]   push:
+[3:5:0]     branches-ignore:
+[3:6:0]     - "ga-ignore-*"
+[3:7:0]   pull_request:
+[3:8:0]     branches-ignore:
+[3:9:0]     - "ga-ignore-*"
+[3:10:0]
+[3:11:0] env:
+[3:12:0]   MIRROR: "Hello"
+[3:13:0]   EXECUTABLE: "World"
+[3:14:0]   
+[3:15:0] jobs:
+[3:16:0]   what_time_is_it:
+[3:17:0]     runs-on: ubuntu-latest
+[3:18:0]     steps:
+[3:19:0]     - name: "What's the time?"
+[3:20:0]       run: "date +%T"
+[3:21:0] 
+[4:0:0] Steps:
+[4:1:0] - Create a github repository
+[4:1:1]
+[4:2:0] - In the repository
+[4:2:1]     - Create the folders:
+[4:2:2]     -   ".github"
+[4:2:3]     -   "workflows" in the ".github" folder
+[4:2:4]
+[4:3:0] - In ".github/workflows":
+[4:3:1]     - Create the file: "main.yml"
+[4:3:2]
+[4:4:0] - In "main.yml"
+[4:4:1]     - name your workflow using the "name:<content>" variable (see: [3:1:0])
+[4:4:2]     - define when to run the workflow with the "on" variable (see: [3:3:0])
+[4:4:3]     - define environement variables with the "env" variable (see: [3:11:0])
+[4:4:4]     - define the tasks to be run with the "jobs" variable (see: [3:15:0])
+[4:4:5]     - define the name of the job (see: [3:16:0])
+[4:4:6]     - define the system image to use with "runs-on" (see: [3:17:0])
+[4:4:7]     - declare the steps to follow with "steps" (see: [3:18:0])
+[4:4:8]     - name the current step with "- name" (see: [3:19:0])
+[4:4:9]    - run a bash line with the "run" command (see: [3:20:0])
+[4:4:10]
+[4:5:0] - Save the file
+[4:5:1]
+[4:9:0] - Push the files to github
+[4:9:1]
+[4:10:0] - You can check the status of your action by going to the actions section of your repository.
+[4:10:1]     - grey: queued, not run
+[4:10:2]     - orange: running
+[4:10:3]     - green: success
+[4:10:4]     - red: failure
+[4:10:5]
+[5:0:0] Thank you for your attention ! ;-)

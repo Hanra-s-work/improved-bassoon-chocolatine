@@ -8,14 +8,13 @@ on:
     branches-ignore:
     - "ga-ignore-*"
   schedule:
-  - cron: '0 0 * * *' # Run the workflow every day at midnight
+  - cron: '0 0 * * *'
 
 
 env:
   SOURCE: Hanra-s-work/improved-bassoon-chocolatine
   MIRROR: "EpitechPromo2027/B-DOP-200-PAR-2-1-chocolatine-henry.letellier"
   EXECUTABLE: "World"
-  GITHUB_TOKEN: ${{ secrets.MY_CHOCO_SECRET_TOKEN }}
   GITHUB_SSH_KEY: ${{ secrets.MY_CHOCO_PRIVATE_SSH_KEY }}
 
 jobs:
@@ -25,8 +24,6 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    # - name: "Clone original repository"
-    #   run: git clone --mirror "https://github.com/${{ env.SOURCE }}.git"
     - name: Push the content to the mirror repository
       uses: pixta-dev/repository-mirroring-action@v1
       with:
