@@ -7,8 +7,6 @@ on:
   pull_request:
     branches-ignore:
     - "ga-ignore-*"
-  schedule:
-  - cron: '0 0 * * *'
 
 env:
   SOURCE: Hanra-s-work/improved-bassoon-chocolatine
@@ -16,7 +14,7 @@ env:
   EXECUTABLE: "hello_world"
   EPITEST_DOCKER: ghcr.io/epitech/coding-style-checker:latest
   GITHUB_SSH_KEY: ${{ secrets.MY_CHOCO_PRIVATE_SSH_KEY }}
-  BASH_CHECKER: check_results_v2.sh
+  BASH_CHECKER: check_results_v3.sh
 
 jobs:
 

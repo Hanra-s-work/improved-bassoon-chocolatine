@@ -1,0 +1,2 @@
+./illegal_file.o:1: MAJOR:C-O1
+./illegal_file_2.a:1: MAJOR:C-O1
