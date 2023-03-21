@@ -1,2 +1,10 @@
 ./illegal_file.o:1: MAJOR:C-O1
 ./illegal_file_2.a:1: MAJOR:C-O1
+./src/dirty.o:1: MAJOR:C-O1
+./src/dirty_code.c:1: MINOR:C-G1
+./src/dirty_code.c:1: MINOR:C-G8
+./src/dirty_code.c:2: MAJOR:C-F6
+./src/dirty_code.c:2: MINOR:C-L4
+./src/dirty_code.c:3: MAJOR:C-F6
+./src/dirty_code.c:3: MINOR:C-G2
+./src/dirty_code.c:3: MINOR:C-L4
