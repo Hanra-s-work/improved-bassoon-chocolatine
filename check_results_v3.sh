@@ -5,7 +5,8 @@ ILLEGAL_FILES_FOUND=0
 while IFS= read -r LINE; do
     FILE=$(echo $LINE | cut -d ':' -f 1)
     LINE_NUMBER=$(echo $LINE | cut -d ':' -f 2)
-    echo "::error file=$FILE,line=$LINE_NUMBER,endLine=0,title=MAJOR coding style error::$FILE#L$LINE_NUMBER"
+    LEVEL=$(echo $LINE | cut -d ':' -f 3 | cut -d ' ' -f 1)
+    echo "::error file=$FILE,line=$LINE_NUMBER,endLine=0,title=$LEVEL coding style error::$FILE#L$LINE_NUMBER"
     ILLEGAL_FILES_FOUND=1
 done <<<"$CONTENT"
 if [ $ILLEGAL_FILES_FOUND -eq 1 ]; then
