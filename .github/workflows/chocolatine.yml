@@ -12,9 +12,11 @@ env:
   SOURCE: Hanra-s-work/improved-bassoon-chocolatine
   MIRROR: "EpitechPromo2027/B-DOP-200-PAR-2-1-chocolatine-henry.letellier"
   EXECUTABLE: "hello_world"
-  EPITEST_DOCKER: ghcr.io/epitech/coding-style-checker:latest
   GITHUB_SSH_KEY: ${{ secrets.MY_CHOCO_PRIVATE_SSH_KEY }}
   BASH_CHECKER: check_results_v3.sh
+  CHECK_IF_PRESENT: check_if_present_v2.sh
+  CHECK_IF_EXECUTABLE: check_if_executable_v1.sh
+  CODING_STYLE_CHECKER: check.sh
 
 jobs:
 
@@ -31,7 +33,6 @@ jobs:
         ssh_private_key: ${{ env.GITHUB_SSH_KEY }}
 
   check_coding_style:
-    # runs-on: ${{ EPITEST_DOCKER }}
     runs-on: ubuntu-latest
     needs: repository_mirroring
     if: success()
@@ -45,32 +46,28 @@ jobs:
       run: ./check.sh $(pwd) $(pwd)
     - name: checking the results
       run: chmod +x ./$BASH_CHECKER && ./$BASH_CHECKER
-      # run: |
-      #   CONTENT="$(cat coding-style-reports.log)"
-      #   ILLEGAL_FILES_FOUND=0
-      #   for FILE in $CONTENT; do
-      #       echo "::error file=$FILE,line=1,endLine=0,title=Unwanted file detected::$FILE"
-      #       ILLEGAL_FILES_FOUND=1
-      #   done
-      #   if [ $ILLEGAL_FILES_FOUND -eq 1 ]; then
-      #       exit 1
-      #   fi
 
-  job1:
+  check_program_compilation:
     runs-on: ubuntu-latest
-    needs: repository_mirroring
+    needs: check_coding_style
     if: success()
+    timeout-minutes: 2
     steps:
     - uses: actions/checkout@v3
-    - name: Step 1
-      run: echo "Step 1"
-    - name: will not fail
-      run: ./hello_world
-
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    if: success()
-    steps:
-    - name: Step 2
-      run: echo "Step 2"
+      with:
+        fetch-depth: 0
+    - uses: epitechcontent/epitest-docker
+    - name: compile code
+      run: |
+        docker run -it --rm -v $(pwd):/home/code -w /home/code epitechcontent/epitest-docker /bin/bash -c "make"
+    - name: clean code
+      run: |
+        docker run -it --rm -v $(pwd):/home/code -w /home/code epitechcontent/epitest-docker /bin/bash -c "make clean"
+    - name: check if present
+      run: |
+        IFS=',' read -ra VARS <<< "${EXECUTABLE}"
+        docker run -it --rm -v $(pwd):/home/code -w /home/code epitechcontent/epitest-docker /bin/bash -c "chmod +x ./${CHECK_IF_PRESENT} && ./${CHECK_IF_PRESENT} ${VARS[@]} && exit $? || exit 1"
+    - name: check if executable
+      run: |
+        IFS=',' read -ra VARS <<< "${EXECUTABLE}"
+        docker run -it --rm -v $(pwd):/home/code -w /home/code epitechcontent/epitest-docker /bin/bash -c "chmod +x ./${CHECK_IF_EXECUTABLE} && ./${CHECK_IF_EXECUTABLE} ${VARS[@]} && exit $? || exit 1"
