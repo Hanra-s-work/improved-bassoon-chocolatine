@@ -5,10 +5,10 @@
 ** test.c
 */
 
-#include <stdio.h>
+#include "my.h"
 
 int main(void)
 {
-    printf("Hello World\n");
+    my_putstr("Hello World\n");
     return 0;
 }
