@@ -61,7 +61,7 @@ jobs:
     - name: compile code
       run: |
         ls
-        sudo docker run epitechcontent/epitest-docker /bin/bash -c echo hi"
+        sudo docker run epitechcontent/epitest-docker /bin/bash -c "echo hi"
         # sudo docker run -it --rm -v $(pwd):/home/code -w /home/code epitechcontent/epitest-docker /bin/bash -c "make"
     - name: clean code
       run: |
