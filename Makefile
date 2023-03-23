@@ -30,6 +30,7 @@ NAME	=	hello_world
 
 TEST_SRC	=	./tests/test_my_strlen.c	\
 				./tests/test_my_putstr.c	\
+				./tests/test_will_fail.c	\
 
 TEST_OBJ	=	$(TEST_SRC:.c=.o)
 
