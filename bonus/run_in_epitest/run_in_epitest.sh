@@ -19,7 +19,7 @@ function display_help() {
 }
 
 if [ $# -ge 1 ]; then
-    display_help "$@"
+    display_help $1
     sudo docker run --rm -v $(pwd):/home/code -w /home/code epitechcontent/epitest-docker /bin/bash -c "$@;exit $?"
 else
     echo "::error file='<not found>',line=1,endLine=0,title='<command not found>'::There was no command specified"
