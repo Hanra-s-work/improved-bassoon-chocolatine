@@ -10,8 +10,6 @@ SRC	=	src/my_putstr.c	\
 
 MAIN	=	test.c
 
-SILENT	=	
-
 CC	=	$(SILENT)gcc
 
 RM	=	$(SILENT)rm -f
@@ -46,6 +44,9 @@ clean:
 clean_tests:
 	$(RM) *.gcda
 	$(RM) *.gcno
+	$(RM) $(TEST_OBJ)
+	$(RM) tests/*.gcda
+	$(RM) tests/*.gcno
 
 fclean: clean clean_tests
 	$(RM) $(NAME)
