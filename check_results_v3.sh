@@ -10,7 +10,7 @@ while IFS= read -r LINE; do
     LINE_NUMBER=$(echo $LINE | cut -d ':' -f 2)
     LEVEL=$(echo $LINE | cut -d ':' -f 3 | cut -d ' ' -f 2)
     ERROR_CODE=$(echo $LINE | cut -d ':' -f 4)
-    echo "::error file=$FILE,line=$LINE_NUMBER,endLine=0,title=$LEVEL coding style error::$ERROR_CODE"
+    echo "::error file=$FILE,line=$LINE_NUMBER,title=$LEVEL coding style error::$ERROR_CODE"
     ILLEGAL_FILES_FOUND=1
 done <<<"$CONTENT"
 if [ $ILLEGAL_FILES_FOUND -eq 1 ]; then
