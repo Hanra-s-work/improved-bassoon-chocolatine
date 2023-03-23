@@ -13,11 +13,11 @@ env:
   MIRROR: "EpitechPromo2027/B-DOP-200-PAR-2-1-chocolatine-henry.letellier"
   EXECUTABLE: "hello_world"
   GITHUB_SSH_KEY: ${{ secrets.MY_CHOCO_PRIVATE_SSH_KEY }}
-  BASH_CHECKER: check_results_v3.sh
-  RUN_IN_EPITEST: run_in_epitest.sh
-  CHECK_IF_PRESENT: check_if_present_v2.sh
-  CHECK_IF_EXECUTABLE: check_if_executable_v1.sh
-  CODING_STYLE_CHECKER: check.sh
+  BASH_CHECKER: scripts/check_results_v3.sh
+  RUN_IN_EPITEST: scripts/run_in_epitest.sh
+  CHECK_IF_PRESENT: scripts/check_if_present_v2.sh
+  CHECK_IF_EXECUTABLE: scripts/check_if_executable_v1.sh
+  CODING_STYLE_CHECKER: scripts/check.sh
 
 jobs:
 
