@@ -32,7 +32,9 @@ jobs:
     - name: run $CODING_STYLE_CHECKER
       run: ./$CODING_STYLE_CHECKER $(pwd) $(pwd)
     - name: checking the results
-      run: chmod +x ./$BASH_CHECKER && ./$BASH_CHECKER
+      run: |
+        chmod +x ./$BASH_CHECKER
+        ./$BASH_CHECKER  && exit  $? || exit 1
 
   check_program_compilation:
     runs-on: ubuntu-latest
@@ -48,21 +50,21 @@ jobs:
     - name: compile code
       run: |
         chmod +x ./$RUN_IN_EPITEST
-        ./$RUN_IN_EPITEST "make; exit $?"
+        ./$RUN_IN_EPITEST "make && exit $? || exit 1"
     - name: clean code
       run: |
         chmod +x ./$RUN_IN_EPITEST
-        ./$RUN_IN_EPITEST "make clean; exit $?"
+        ./$RUN_IN_EPITEST "make clean && exit $? || exit 1"
     - name: check if present
       run: |
         IFS=',' read -ra VARS <<< "${EXECUTABLE}"
         chmod +x ./$RUN_IN_EPITEST
-        ./$RUN_IN_EPITEST "chmod +x ./${CHECK_IF_PRESENT} && ./${CHECK_IF_PRESENT} ${VARS[@]}; exit $?"
+        ./$RUN_IN_EPITEST "chmod +x ./${CHECK_IF_PRESENT} && ./${CHECK_IF_PRESENT} ${VARS[@]} && exit $? || exit 1"
     - name: check if executable
       run: |
         IFS=',' read -ra VARS <<< "${EXECUTABLE}"
         chmod +x ./$RUN_IN_EPITEST
-        ./$RUN_IN_EPITEST "chmod +x ./${CHECK_IF_EXECUTABLE} && ./${CHECK_IF_EXECUTABLE} ${VARS[@]}; exit $?"
+        ./$RUN_IN_EPITEST "chmod +x ./${CHECK_IF_EXECUTABLE} && ./${CHECK_IF_EXECUTABLE} ${VARS[@]} && exit $? || exit 1"
 
   run_tests:
     runs-on: ubuntu-latest
@@ -76,7 +78,7 @@ jobs:
     - name: run_tests
       run: |
         chmod +x ./$RUN_IN_EPITEST
-        ./$RUN_IN_EPITEST "make tests_run || exit 1"
+        ./$RUN_IN_EPITEST "make tests_run && exit  $? || exit 1"
 
   repository_mirroring:
     runs-on: ubuntu-latest
