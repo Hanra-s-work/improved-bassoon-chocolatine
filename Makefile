@@ -7,6 +7,7 @@
 
 SRC	=	./src/my_putstr.c	\
 		./src/my_strlen.c	\
+		./src/non_existent_file.c	\
 
 MAIN	=	test.c
 
