@@ -5,29 +5,31 @@
 ## Makefile
 ##
 
-SRC	=	src/my_putstr.c	\
-		src/my_strlen.c	\
+SRC	=	./src/my_putstr.c	\
+		./src/my_strlen.c	\
 
 MAIN	=	test.c
+
+SILENT	=
 
 CC	=	$(SILENT)gcc
 
 RM	=	$(SILENT)rm -f
 
-LDFLAGS =
+LDFLAGS	=
 
-LDLIBS =
+LDLIBS	=
 
 CFLAGS	=	-Wall -Wextra
 
 CPPFLAGS	=	-iquote ./include
 
-OBJ	=	$(SRC.c=.o)
+OBJ	=	$(SRC:.c=.o)
 
 NAME	=	hello_world
 
-TEST_SRC	=	tests/test_my_strlen.c	\
-				tests/test_my_putstr.c	\
+TEST_SRC	=	./tests/test_my_strlen.c	\
+				./tests/test_my_putstr.c	\
 
 TEST_OBJ	=	$(TEST_SRC:.c=.o)
 
@@ -45,14 +47,18 @@ clean_tests:
 	$(RM) *.gcda
 	$(RM) *.gcno
 	$(RM) $(TEST_OBJ)
-	$(RM) tests/*.gcda
-	$(RM) tests/*.gcno
+	cd tests && \
+	$(RM) *.gcda && \
+	$(RM) *.gcno && \
+	cd ..
+	cd src && \
+	$(RM) *.gcda && \
+	$(RM) *.gcno && \
+	cd ..
 
 fclean: clean clean_tests
 	$(RM) $(NAME)
 	$(RM) $(TEST_TARGET)
-
-re: fclean all
 
 tests_run: CFLAGS += --coverage
 tests_run: LDFLAGS += -lcriterion
@@ -60,5 +66,7 @@ tests_run: clean_tests
 tests_run: $(TEST_OBJ) $(OBJ)
 	$(CC) -o $(TEST_TARGET) $(CPPFLAGS) $(CFLAGS) $(TEST_SRC) $(SRC) $(LDFLAGS)
 	./$(TEST_TARGET)
+
+re: fclean all
 
 .PHONY: all clean fclean re tests_run clean_tests
