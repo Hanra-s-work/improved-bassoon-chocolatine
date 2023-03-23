@@ -56,10 +56,8 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: Set up Docker
-      uses: docker/setup-docker@v1
     - name: Pull Docker image
-      run: docker pull epitechcontent/epitest-docker
+      run: sudo docker pull epitechcontent/epitest-docker
     - name: compile code
       run: |
         docker run -it --rm -v $(pwd):/home/code -w /home/code epitechcontent/epitest-docker /bin/bash -c "make"
