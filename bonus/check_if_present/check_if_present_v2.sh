@@ -1,5 +1,11 @@
 #!/bin/bash
 # (c) Written by Henry Letellier
+##
+## EPITECH PROJECT, 2022
+## chocolatine (Workspace)
+## File description:
+## check_if_present_v2.sh
+##
 
 if [ $# -ge 1 ]; then
     EXECUTABLES=$@

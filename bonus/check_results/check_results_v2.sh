@@ -1,5 +1,12 @@
 #!/bin/bash
 # (c) Written by Henry Letellier
+##
+## EPITECH PROJECT, 2022
+## chocolatine (Workspace)
+## File description:
+## check_results_v2.sh
+##
+
 CONTENT="$(cat coding-style-reports.log)"
 ILLEGAL_FILES_FOUND=0
 while IFS= read -r LINE; do
