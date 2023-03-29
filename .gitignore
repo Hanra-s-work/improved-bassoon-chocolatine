@@ -6,6 +6,6 @@ tmp.*
 make_mirror.sh
 personall_access_token.token
 **/ssh_key/*
-.vscode/*
+.vscode/**
 hello_world
 unit_test
