@@ -12,7 +12,7 @@ env:
   SOURCE: Hanra-s-work/improved-bassoon-chocolatine
   MIRROR: "EpitechPromo2027/B-DOP-200-PAR-2-1-chocolatine-henry.letellier"
   EXECUTABLE: "hello_world"
-  GITHUB_SSH_KEY: ${{ secrets.MY_CHOCO_PRIVATE_SSH_KEY }}
+  GITHUB_SSH_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
   BASH_CHECKER: scripts/check_results_v3.sh
   RUN_IN_EPITEST: scripts/run_in_epitest.sh
   CHECK_IF_PRESENT: scripts/check_if_present_v2.sh
