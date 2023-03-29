@@ -10,8 +10,8 @@ on:
 
 env:
   SOURCE: Hanra-s-work/improved-bassoon-chocolatine
-  MIRROR: "EpitechPromo2027/B-DOP-200-PAR-2-1-chocolatine-henry.letellier"
-  EXECUTABLE: "hello_world"
+  MIRROR_URL: "EpitechPromo2027/B-DOP-200-PAR-2-1-chocolatine-henry.letellier"
+  EXECUTABLES: "hello_world"
   GITHUB_SSH_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
   BASH_CHECKER: scripts/check_results_v3.sh
   RUN_IN_EPITEST: scripts/run_in_epitest.sh
@@ -57,12 +57,12 @@ jobs:
         ./$RUN_IN_EPITEST "make clean && exit $? || exit 1"
     - name: check if present
       run: |
-        IFS=',' read -ra VARS <<< "${EXECUTABLE}"
+        IFS=',' read -ra VARS <<< "${EXECUTABLES}"
         chmod +x ./$RUN_IN_EPITEST
         ./$RUN_IN_EPITEST "chmod +x ./${CHECK_IF_PRESENT} && ./${CHECK_IF_PRESENT} ${VARS[@]} && exit $? || exit 1"
     - name: check if executable
       run: |
-        IFS=',' read -ra VARS <<< "${EXECUTABLE}"
+        IFS=',' read -ra VARS <<< "${EXECUTABLES}"
         chmod +x ./$RUN_IN_EPITEST
         ./$RUN_IN_EPITEST "chmod +x ./${CHECK_IF_EXECUTABLE} && ./${CHECK_IF_EXECUTABLE} ${VARS[@]} && exit $? || exit 1"
 
@@ -91,5 +91,5 @@ jobs:
     - name: Push the content to the mirror repository
       uses: pixta-dev/repository-mirroring-action@v1
       with:
-        target_repo_url: git@github.com:${{ env.MIRROR }}.git
+        target_repo_url: git@github.com:${{ env.MIRROR_URL }}.git
         ssh_private_key: ${{ env.GITHUB_SSH_KEY }}
