@@ -80,7 +80,7 @@ jobs:
         chmod +x ./$RUN_IN_EPITEST
         ./$RUN_IN_EPITEST "make tests_run && exit  $? || exit 1"
 
-  repository_mirroring:
+  push_to_mirror:
     runs-on: ubuntu-latest
     needs: run_tests
     if: success()
